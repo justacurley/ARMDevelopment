@@ -128,6 +128,10 @@ function Test-ARMDeployOutputs {
         if (($JsonParameters | Get-Member -Type NoteProperty 'parameters') -ne $null) {
             $JsonParameters = $JsonParameters.parameters
         }    
+        $JsonTemplateParameters = Get-Content $TemplateFile -Raw | ConvertFrom-Json
+        if (($JsonTemplateParameters | Get-Member -Type NoteProperty 'parameters') -ne $null) {
+            $JsonTemplateParameters = $JsonTemplateParameters.parameters
+        }  
         $ArtifactsLocationName = '_artifactsLocation'
         $ArtifactsLocationSasTokenName = '_artifactsLocationSasToken'
         $OptionalParameters[$ArtifactsLocationName] = $JsonParameters | Select -Expand $ArtifactsLocationName -ErrorAction Ignore | Select -Expand 'value' -ErrorAction Ignore
@@ -268,8 +272,8 @@ function Test-ARMDeployOutputs {
             Verbose = $true
             ErrorVariable = 'ErrorMessages'
         }
-        #If the params file includes _artifactsLocation, assume the other optional parameters are there and use them
-        if ($jsonparameters.psobject.members.name -contains '_artifactsLocation'){
+        #If the template file includes _artifactsLocation, assume the other optional parameters are there and use them
+        if ($JsonTemplateParameters.psobject.members.name -contains '_artifactsLocation'){
             $deploymentObj =  New-AzureRmResourceGroupDeployment @deploymentParams @optionalParameters
         }
         else {
