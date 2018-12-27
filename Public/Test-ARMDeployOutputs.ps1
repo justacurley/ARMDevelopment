@@ -281,7 +281,7 @@ function Test-ARMDeployOutputs {
         }
         if ($ErrorMessages) {
             Write-Output '', 'Template deployment returned the following errors:', @(@($ErrorMessages) | ForEach-Object { $_.Exception.Message.TrimEnd("`r`n") })
-            if( $ErrorMessages.Exception.Body -ne $null )
+            if( ($ErrorMessages.Exception | Get-Member -MemberType Property -Name Body) -ne $null )
             {
                 Write-Output "Details"
                 Write-Output ($ErrorMessages.Exception.Body.Details | ForEach-Object { ("{0}: {1}" -f $_.Code, $_.Message) } )
