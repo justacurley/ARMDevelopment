@@ -43,7 +43,7 @@ $injectOutput = @{
 }
 Test-ArmDeployOutputs @outputParams -injectOutput $injectOutput -OutVariable foo
 ```
-The result looks like this: 
+Output: 
 ``` 
 Deployment: azuredeploy-1219-0041
 
@@ -52,11 +52,10 @@ Name             Type                       Value
 testFunc2        String                     diags5xevxe74cfmus
 ```
 
-Using the same template, this is what the -varToOutput switch looks like  
+Using the same template, this is what the -varToOutput switch returns  
 ![varToOutput](https://github.com/justacurley/ARMDevelopment/blob/master/varToOutput.png)
 
-# ToDo
-  - Add cmdlet specifically for Test-AzureRMResourcegroupDeployment -Debug
+# ToDo  
   - Clean up File/Folder parameters so they're all in line and make sense
   
 
