@@ -28,3 +28,28 @@ function success ($message,[switch]$failure) {
     Set-StrictMode -Off
     return @($ValidationOutput | Where-Object { $_ -ne $null } | ForEach-Object { @('  ' * $Depth + ': ' + $_.Message) + @(Format-ValidationOutput @($_.Details) ($Depth + 1)) })
 }
+
+function addToGlobal ($key, $value, [switch]$force) { 
+    if ($Global:armDeploy.ContainsKey($key)) {      
+        if ($Global:armDeploy[$Key]) {
+           if ($force) {
+               $Global:armDeploy[$key] = $value
+           }
+        }
+        else {        
+            $Global:armDeploy[$Key] = $value
+        }
+    }
+    else {      
+        $Global:armDeploy.Add($key, $value)
+    }  
+}
+
+function validatePath ($path) {
+    if( -Not ($path | Test-Path) ){
+        throw "File or folder does not exist"
+    }
+    else {
+        return $true
+    }
+}

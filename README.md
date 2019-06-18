@@ -11,13 +11,10 @@ I got tired of keeping my copy up to date, and the slim usefulness of the blank 
 
 # cmdlets
   - Test-ArmDeployOutputs
-  - Build-Outputs
 
 <b>Test-ArmDeployOutputs</b> is the meat of the operation. Provide it some standard azure deployment parameters (ResourceGroup,StorageAccount,TemplateFile,ParamsFile, etc) and what you would like injected into the Outputs {} section of the template you specify.  
 
 The cmdlet will copy all your templates to a directory in $env:temp, remove the resources[] from the templates (so we dont deploy anything on accident), inject a hashtable of outputs, upload, and deploy.
-
-<b>Build-Outputs</b> sets up in a similar way. Provide it some standard parameters plus templatefile. This cmdlet will take all the variables from the templatefile you specify, and attempt to inject them as outputs using some ***voodoo*** that doesn't work very well.
 
 # Ex.
 Lets take one variables from this quickstart template and inject it as an output  
